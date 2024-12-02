@@ -5,7 +5,8 @@ from createScripts import *
 from readScripts import *
 from updateScripts import *
 from deleteScripts import *
-from utils import connect_to_mongodb
+from utils import connectionOpen
+from createScripts import create_sample_database
 
 def main():
     # Load environment variables
@@ -15,12 +16,10 @@ def main():
     connection_string = os.getenv('MONGODB_URI')
     
     # Connect to MongoDB
-    client = connect_to_mongodb(connection_string)
-    
-    # Select database
+    client = connectionOpen(connection_string)
     db = client['poeDb']
-    
-    # Your main application logic here
-    
+    create_sample_database(db['test_items'], 1000)
+
 if __name__ == "__main__":
     main() 
+
