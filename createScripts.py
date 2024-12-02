@@ -1,7 +1,4 @@
 def insert_one_document(collection, document):
-    """
-    Insert a single document into the specified collection
-    """
     try:
         result = collection.insert_one(document)
         return result.inserted_id
@@ -10,9 +7,6 @@ def insert_one_document(collection, document):
         return None
 
 def insert_many_documents(collection, documents):
-    """
-    Insert multiple documents into the specified collection
-    """
     try:
         result = collection.insert_many(documents)
         return result.inserted_ids

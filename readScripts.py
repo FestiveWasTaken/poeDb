@@ -1,7 +1,4 @@
 def findOneDocument(collection, query):
-    """
-    Find a single document matching the query
-    """
     try:
         return collection.find_one(query)
     except Exception as e:
@@ -9,9 +6,6 @@ def findOneDocument(collection, query):
         return None
 
 def findManyDocuments(collection, query, limit=None):
-    """
-    Find multiple documents matching the query
-    """
     try:
         if limit:
             return list(collection.find(query).limit(limit))

@@ -7,7 +7,6 @@ def init_database():
         if not client:
             raise Exception("Failed to connect to MongoDB")
             
-        # Get/Create database
         db = client['poeDb']
         
         # Create a test collection with one document
@@ -17,10 +16,9 @@ def init_database():
             "description": "This is a test document"
         }
         
-        # Insert the test document
         test_collection.insert_one(test_document)
         
-        print("Successfully created database 'poeDb' with test collection!")
+        print("Successfully created test collection!")
         print("Available collections:", db.list_collection_names())
         
     except Exception as e:

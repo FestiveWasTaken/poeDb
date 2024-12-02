@@ -1,7 +1,4 @@
 def updateOneDocument(collection, query, update_data):
-    """
-    Update a single document matching the query
-    """
     try:
         result = collection.update_one(query, {"$set": update_data})
         return result.modified_count
@@ -10,9 +7,6 @@ def updateOneDocument(collection, query, update_data):
         return None
 
 def updateManyDocuments(collection, query, update_data):
-    """
-    Update multiple documents matching the query
-    """
     try:
         result = collection.update_many(query, {"$set": update_data})
         return result.modified_count
