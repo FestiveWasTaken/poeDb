@@ -136,7 +136,7 @@ def search_by_prefix(user_id, prefix_ids):
         
         {
             '$project': {
-                '$_id': 0,
+                '_id': 0,
                 'prefixId': '$_id',
                 'itemCount': { '$size': '$matchedItems' },
                 'matchedItems': 1
@@ -173,10 +173,10 @@ def group_by_rarity(user_id):
     
         {
             '$project': {
-                '$_id': 0,
+                '_id': 0,
                 'rarity': '$_id',
                 'count': 1,
-                'sampleItems': { '$slice': ['$items', 5] }
+                'items': 1
             }
        },
     
@@ -192,3 +192,23 @@ def group_by_rarity(user_id):
 def delete_item_by_id(item_ids):
     collection = get_collection()
     collection.delete_many({'id': { '$in': item_ids }})
+
+
+
+# UPDATE - Users can modify items using other existing items
+def socket_item(socket_parent_item_id, socket_child_item_id):
+    collection = get_collection()
+    
+    query = {
+        'id': socket_parent_item_id,
+        'socket': { '$gte': 1 }
+    }
+    
+    pipeline = {
+        '$push': {
+            'socketedItems': socket_child_item_id
+        }
+    }
+
+    if collection.find_one({ 'id': socket_child_item_id, 'socketable': True }):
+        collection.update_one(query, pipeline)
